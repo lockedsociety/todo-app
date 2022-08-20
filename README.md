@@ -16,6 +16,12 @@ A todo app for daily tasks.
 - [ ] Warn when not done when time reached.
 - [ ] Download task as pdf or others.
 
+## Languages
+
+- HTML
+- CSS 
+- JS
+
 ## Contributing
 
 Please read CONTRIBUTING.md for details.
