@@ -20,4 +20,4 @@ A todo app for daily task.
 ## Developer
 
 - [Sujauddin](https://sujaudd1n.github.io)
-- [Akash](https://github.com/)
+- [Akash](https://github.com/XD69Z)
