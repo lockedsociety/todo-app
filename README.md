@@ -4,7 +4,7 @@ A todo app for daily task.
 
 ## Features list
 
-- Task with title and description []
+- Task with title and description [x]
 - Add task []
 - Delete task []
 - Edit task []
