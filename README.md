@@ -1,6 +1,6 @@
 # Todo
 
-A todo app for daily task.
+A todo app for daily tasks.
 
 ## Features list
 
@@ -16,8 +16,15 @@ A todo app for daily task.
 - [ ] Warn when not done when time reached.
 - [ ] Download task as pdf or others.
 
+## Contributing
+
+Please read CONTRIBUTING.md for details.
 
 ## Developer
 
 - [Sujauddin](https://sujaudd1n.github.io)
 - [Akash](https://github.com/XD69Z)
+
+## License
+
+This project is licensed under MIT License - see the LICENSE.md file for details.
