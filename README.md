@@ -24,13 +24,13 @@ A todo app for daily tasks.
 
 ## Contributing
 
-Please read CONTRIBUTING.md for details.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ## Developer
 
-- [Sujauddin](https://sujaudd1n.github.io)
 - [Akash](https://github.com/XD69Z)
+- [Sujauddin](https://sujaudd1n.github.io)
 
 ## License
 
-This project is licensed under MIT License - see the LICENSE.md file for details.
+This project is licensed under MIT License - see the [LICENSE.md](LICENSE.md) file for details.
