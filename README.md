@@ -28,7 +28,8 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ## Developer
 
-- [Contributors](https://github.com/lockedsociety/todo-app/graphs/contributors)
+- [Akash](https://github.com/XD69Z)
+- [Sujauddin](https://sujaudd1n.github.io)
 
 ## License
 
