@@ -8,6 +8,9 @@
 :root
 {
     font-size: 16px;
+    --main-bg-color:#111116;
+    --main-navbar-color:#08080D;
+    --main-accent-color:#FF3939;
 }
 
 body
