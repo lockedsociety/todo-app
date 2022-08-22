@@ -5,8 +5,5 @@
 
 [Logo](https://www.figma.com/file/GjEQU3QZ2ynqehIrzgBmLe/TODO-Logo?node-id=0%3A1)
 
-## Images
-
-[Background](https://unsplash.com/photos/5tW1ca0Zq18)
 
 
