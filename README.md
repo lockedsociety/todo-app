@@ -5,11 +5,11 @@ A todo app for daily tasks.
 ## Features list
 
 - [ ] Task with title and description.
-- [ ] Add task.
+- [x] Add task.
 - [ ] Delete task.
 - [ ] Edit task.
-- [ ] Timestamp when created.
-- [ ] Timestamp when to be done.
+- [x] Timestamp when created.
+- [x] Timestamp when to be done.
 - [ ] Save locally.
 - [ ] History.
 - [ ] Mark as done.
@@ -28,8 +28,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ## Developer
 
-- [Akash](https://github.com/XD69Z)
-- [Sujauddin](https://sujaudd1n.github.io)
+- [Contributors](https://github.com/lockedsociety/todo-app/graphs/contributors)
 
 ## License
 

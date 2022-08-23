@@ -6,6 +6,9 @@
   <title>Todo</title>
   <link rel="stylesheet" href="assets/styles/style.css">
   <script src="assets/scripts/script.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet"> 
 </head>
 <body>
   <header class="header">
@@ -21,14 +24,14 @@
   <form class="form">
       <input type="text" class="form__title" placeholder="Title" required autofocus>
       <input type="text" class="form__description" placeholder="Description" required>
-      <input type="time" class="form__time" max="23:59" min="20:00">
+      <input type="time" class="form__time">
       <input type="submit" value="Add">
   </form>
 
 
   <div class="datc">
       <p class="datc__date"></p>
-      <p class="datc_time"></p>
+      <p class="datc__time"></p>
   </div>
   <div class="tasks">
     

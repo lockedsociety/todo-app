@@ -8,19 +8,27 @@
 :root
 {
     font-size: 16px;
-    --main-bg-color:#111116;
-    --main-navbar-color:#08080D;
-    --main-accent-color:#FF3939;
+    --main-bg-color: #111116;
+    --main-header-color: #08080D;
+    --main-accent-color: #FF3939;
+    --main-text-color: #eeeeee;
 }
 
 body
 {
-    font-family: sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    background: var(--main-bg-color);
+    color: var(--main-text-color);
 }
 
 a
 {
     text-decoration: none;
+}
+
+.header
+{
+    background: var(--main-header-color);
 }
 
 .form
