@@ -12,6 +12,8 @@
     --main-header-color: #08080D;
     --main-accent-color: #FF3939;
     --main-text-color: #eeeeee;
+
+    --secondary-bg-color: #333338;
 }
 
 body
@@ -41,6 +43,7 @@ input, textarea
 {
     font-family: inherit;
     font-size: 100%;
+    appearance: none;
 }
 
 .header
@@ -82,6 +85,11 @@ input, textarea
     background-repeat: no-repeat;
 }
 
+.bcon__button:active
+{
+    background-color: #fc5b5b;
+}
+
 .bcon__button + .bcon__button
 {
     margin-left: 10px;
@@ -108,7 +116,25 @@ input, textarea
 }
 .form
 {
+    padding: 10px;
     display: none;
+    flex-flow: column wrap;
+}
+
+.form__title, .form__time, .form__description
+,input[type="submit"]
+{
+    margin-bottom: 5px;
+    border: 0;
+    padding: 5px;
+    background-color: var(--secondary-bg-color);
+    color: var(--main-text-color);
+}
+
+.form__description
+{
+    resize: vertical;
+    min-height: 80px;
 }
 
 .datc
@@ -126,6 +152,15 @@ input, textarea
     margin-bottom: 5px;
 }
 
+.tasks
+{
+    padding: 5px;
+}
+
+.footer
+{
+    padding: 5px;
+}
 .footer__copy
 {
     font-size: 0.7rem;

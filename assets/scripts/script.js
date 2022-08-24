@@ -21,12 +21,17 @@ setInterval(update_time, 1000)
 // add task
 
 add_task.addEventListener('click', () => {
-    if (form.style.display == "block")
+    if (form.style.display == "flex")
+    {
         form.style.display = "none";
+        add_task.style.backgroundImage = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z' fill='rgba(255,255,255,1)'/%3E%3C/svg%3E\")"
+    }
     else
     {
-        form.style.display = "block";
+        form.style.display = "flex";
         document.querySelector(".form__title").focus();
+        add_task.style.backgroundImage = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z' fill='rgba(255,255,255,1)'/%3E%3C/svg%3E\")"
+        console.log(1)
     }
 })
 
