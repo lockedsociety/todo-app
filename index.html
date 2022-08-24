@@ -13,17 +13,17 @@
 <body>
   <header class="header">
     <h1 class="header__title">Todo</h1>
-    <img src="#" alt="logo" class="header__img">
+    <img src="assets/logo/logo.png" alt="logo" class="header__img">
     <div class="bcon">
-        <button type="button" class="bcon__button bcon__button--add">Add task</button>
-        <button type="button" class="bcon__button bcon__button--download">Download</button>
-        <button type="button" class="bcon__button bcon__button--history">History</button>
+        <button type="button" class="bcon__button bcon__button--add"><span>Add task</span></button>
+        <button type="button" class="bcon__button bcon__button--download"><span>Download</span></button>
+        <button type="button" class="bcon__button bcon__button--history"><span>History</span></button>
     </div>
   </header>
 
   <form class="form">
       <input type="text" class="form__title" placeholder="Title" required autofocus>
-      <input type="text" class="form__description" placeholder="Description" required>
+      <textarea class="form__description" placeholder="Description"></textarea>
       <input type="time" class="form__time">
       <input type="submit" value="Add">
   </form>
