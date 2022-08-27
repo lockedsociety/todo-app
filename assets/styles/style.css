@@ -70,18 +70,20 @@ input, textarea
 {
     display: flex;
     margin-left: 10px;
+    width: 50%;
+    justify-content: flex-end;
 }
 
 .bcon__button
 {
     appearance: none;
-    width: 28px;
-    height: 28px;
+    width: 42px;
+    height: 42px;
     border: 0;
     border-radius: 50%;
     background-color: var(--main-accent-color);
-    background-position: 4px 4px;
-    background-size: 20px 20px;
+    background-position: 6px 6px;
+    background-size: 30px 30px;
     background-repeat: no-repeat;
 }
 
@@ -92,7 +94,7 @@ input, textarea
 
 .bcon__button + .bcon__button
 {
-    margin-left: 10px;
+    margin-left: 24px;
 }
 
 .bcon__button span
