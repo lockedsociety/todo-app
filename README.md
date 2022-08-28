@@ -1,6 +1,6 @@
-# Todo
+# Scheduler
 
-A todo app for daily tasks.
+A scheduler for daily tasks.
 
 ## Features list
 
