@@ -14,7 +14,7 @@ A scheduler for daily tasks.
 - [ ] History.
 - [ ] Mark as done.
 - [ ] Warn when not done when time reached.
-- [ ] Download task as pdf or others.
+- [x] Download task as pdf or others.
 
 ## Languages
 

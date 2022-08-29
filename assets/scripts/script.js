@@ -18,6 +18,12 @@ function update_time()
 
 setInterval(update_time, 1000)
 
+// Download Task
+
+document.querySelector('.bcon__button--download').addEventListener('click', ()=>{
+    window.print();
+})
+
 // add task
 
 add_task.addEventListener('click', () => {
