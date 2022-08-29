@@ -167,3 +167,16 @@ input, textarea
 {
     font-size: 0.7rem;
 }
+
+@media print
+{
+    .bcon
+    {
+        display: none;
+    }
+
+    .form
+    {
+        display: none !important;
+    }
+}

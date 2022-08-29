@@ -48,29 +48,39 @@ form.addEventListener('submit', (e) => {
     description.value = "";
     time.value = "";
 
-    form.style.dsiplay = "none";
+    //form.style.display = "none";
 })
 
 function get_task(title, description, time)
 {
     let date = new Date();
+
+    // task title
     let task_title = document.createElement('h2');
     task_title.setAttribute('class', 'tasks__title');
     task_title.textContent = title;
 
+    // task add time
     let task_ctime = document.createElement('p');
     task_ctime.setAttribute('class', 'tasks__ctime');
     task_ctime.textContent = date.toLocaleTimeString('en-US', {hour: "2-digit", minute: "2-digit"})
 
+    // task done time
     let task_dtime = document.createElement('p');
     task_dtime.setAttribute('class', 'tasks__dtime');
     if (time === "") time = "unspecified time"
     task_dtime.textContent = "to be done by " + time;
 
+    // task description
+    let task_description = document.createElement('p');
+    task_description.setAttribute('class', 'tasks__description');
+    task_description.textContent = description;
 
+    //appending
     let info = document.createElement('div');
     info.setAttribute('class', 'tasks__info')
     info.appendChild(task_title);
+    info.appendChild(task_description);
     info.appendChild(task_ctime);
     info.appendChild(task_dtime);
 

@@ -4,7 +4,7 @@ A scheduler for daily tasks.
 
 ## Features list
 
-- [ ] Task with title and description.
+- [x] Task with title and description.
 - [x] Add task.
 - [ ] Delete task.
 - [ ] Edit task.
