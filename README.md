@@ -10,7 +10,7 @@ A scheduler for daily tasks.
 - [ ] Edit task.
 - [x] Timestamp when created.
 - [x] Timestamp when to be done.
-- [ ] Save locally.
+- [x] Save locally.
 - [ ] History.
 - [ ] Mark as done.
 - [ ] Warn when not done when time reached.

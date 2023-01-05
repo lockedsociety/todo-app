@@ -5,39 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Todo</title>
   <link rel="stylesheet" href="assets/styles/style.css">
+  <script src="assets/scripts/unilities.js" defer></script>
   <script src="assets/scripts/script.js" defer></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+ <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet"> 
+ -->
 </head>
 <body>
   <header class="header">
     <h1 class="header__title">Todo</h1>
     <img src="assets/logo/logo.png" alt="logo" class="header__img">
-    <div class="bcon">
-        <button type="button" class="bcon__button bcon__button--add"><span>Add task</span></button>
-        <button type="button" class="bcon__button bcon__button--download"><span>Download</span></button>
-        <button type="button" class="bcon__button bcon__button--history"><span>History</span></button>
+    <div class="options">
+        <button type="button" class="options__button options__button--add"><span>Add task</span></button>
+        <button type="button" class="options__button options__button--download"><span>Download</span></button>
+        <button type="button" class="options__button options__button--history"><span>History</span></button>
     </div>
   </header>
 
   <form class="form">
-      <input type="text" class="form__title" placeholder="Title" required autofocus>
+      <input type="text" class="form__name" placeholder="Title" required autofocus>
       <textarea class="form__description" placeholder="Description"></textarea>
       <input type="time" class="form__time">
       <input type="submit" value="Add">
   </form>
 
 
-  <div class="datc">
-      <p class="datc__date"></p>
-      <p class="datc__time"></p>
+  <div class="datetime">
+      <p class="datetime__date"></p>
+      <p class="datetime__time"></p>
   </div>
+
   <div class="tasks">
-    
   </div>
+
   <footer class="footer">
       <p class="footer__copy">&copy; 2022 LockedSociety</p>
   </footer>
+
 </body>
 </html>

@@ -12,6 +12,7 @@
     --main-header-color: #08080D;
     --main-accent-color: #FF3939;
     --main-text-color: #eeeeee;
+    --main-task-color: #17232e;;
 
     --secondary-bg-color: #333338;
 }
@@ -66,7 +67,7 @@ input, textarea
     width: 80px;
 }
 
-.bcon
+.options
 {
     display: flex;
     margin-left: 10px;
@@ -74,7 +75,7 @@ input, textarea
     justify-content: flex-end;
 }
 
-.bcon__button
+.options__button
 {
     appearance: none;
     width: 42px;
@@ -87,32 +88,32 @@ input, textarea
     background-repeat: no-repeat;
 }
 
-.bcon__button:active
+.options__button:active
 {
     background-color: #fc5b5b;
 }
 
-.bcon__button + .bcon__button
+.options__button + .options__button
 {
     margin-left: 24px;
 }
 
-.bcon__button span
+.options__button span
 {
     display: none;
 }
 
-.bcon__button--add
+.options__button--add
 {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z' fill='rgba(255,255,255,1)'/%3E%3C/svg%3E");
 }
 
-.bcon__button--download
+.options__button--download
 {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M3 19h18v2H3v-2zM13 9h7l-8 8-8-8h7V1h2v8z' fill='rgba(255,255,255,1)'/%3E%3C/svg%3E");
 }
 
-.bcon__button--history
+.options__button--history
 {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0H24V24H0z'/%3E%3Cpath d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12h2c0 4.418 3.582 8 8 8s8-3.582 8-8-3.582-8-8-8C9.536 4 7.332 5.114 5.865 6.865L8 9H2V3l2.447 2.446C6.28 3.336 8.984 2 12 2zm1 5v4.585l3.243 3.243-1.415 1.415L11 12.413V7h2z' fill='rgba(255,255,255,1)'/%3E%3C/svg%3E");
 }
@@ -123,7 +124,7 @@ input, textarea
     flex-flow: column wrap;
 }
 
-.form__title, .form__time, .form__description
+.form__name, .form__time, .form__description
 ,input[type="submit"]
 {
     margin-bottom: 5px;
@@ -139,24 +140,42 @@ input, textarea
     min-height: 80px;
 }
 
-.datc
+.datetime
 {
     padding: 10px;
 }
 
-.datc__date, .datc__time
+.datetime__date, .datetime__time
 {
     text-align: center;
 }
 
-.datc__date
+.datetime__date
 {
     margin-bottom: 5px;
 }
 
 .tasks
 {
-    padding: 5px;
+    padding: 10px;
+}
+
+.tasks__task
+{
+    background-color: var(--main-task-color);
+
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.tasks__description
+{
+    margin-top: 5px;
+}
+
+.tasks__add_time
+{
+    margin-top: 20px;
 }
 
 .footer
@@ -170,7 +189,7 @@ input, textarea
 
 @media print
 {
-    .bcon
+    .options
     {
         display: none;
     }
