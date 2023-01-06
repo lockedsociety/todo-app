@@ -57,19 +57,14 @@ form.addEventListener("submit", (e) => {
 history_form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  let date = history_form.children[0].value;
-  date = date.split("-");
-  date = parseInt(date[1]) + "/" + parseInt(date[2]) + "/" + date[0];
-
+  let date = history_form.children[1].value;
   let tasks = JSON.parse(localStorage.getItem(date));
   document.querySelector(".tasks").textContent = "";
   if (tasks)
-  for (let task of tasks) {
-    document.querySelector(".tasks").prepend(Task.prototype.get(task));
-  }
-  else
-  {
-
+    for (let task of tasks) {
+      document.querySelector(".tasks").prepend(Task.prototype.get(task));
+    }
+  else {
     document.querySelector(".tasks").textContent = "No task available.";
   }
 });
