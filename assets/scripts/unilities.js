@@ -10,11 +10,6 @@ class Initialize {
     if (!localStorage.getItem(date)) localStorage.setItem(date, "[]");
   }
 
-  initialize_datetime() {
-    let date = new Date();
-    document.querySelector(".datetime__date").textContent = "Showing tasks of " + date.toDateString();
-  }
-
   initialize_tasks() {
     let date = new Date().toLocaleDateString();
     let tasks = JSON.parse(localStorage.getItem(date));
@@ -22,6 +17,12 @@ class Initialize {
     for (let task of tasks) {
       document.querySelector(".tasks").prepend(Task.prototype.get(task));
     }
+  }
+
+  initialize_datetime() {
+    let date = new Date();
+    document.querySelector(".datetime__date").textContent =
+      "Showing tasks of " + date.toLocaleDateString();
   }
 
   initialize() {
@@ -32,9 +33,24 @@ class Initialize {
 }
 
 class Update {
-  update_datetime() {
-    let date = new Date();
-    document.querySelector(".datetime__date").textContent = date.toDateString();
+  update_localstorage(task) {
+    let date = new Date().toLocaleDateString();
+    let all_tasks = JSON.parse(localStorage.getItem(date));
+    all_tasks.push(task);
+    localStorage.setItem(date, JSON.stringify(all_tasks));
+  }
+
+  update_tasks(date) {
+    let tasks = JSON.parse(localStorage.getItem(date));
+    document.querySelector(".tasks").textContent = "";
+    for (let task of tasks) {
+      document.querySelector(".tasks").prepend(Task.prototype.get(task));
+    }
+  }
+
+  update_datetime(date) {
+    document.querySelector(".datetime__date").textContent =
+      "Showing tasks of " + date;
   }
 
   update() {
@@ -51,18 +67,13 @@ class Task {
   }
 
   save() {
-    let date = new Date().toLocaleDateString();
-    let all_tasks = JSON.parse(localStorage.getItem(date));
-
     let new_task = new Task(
       this.name,
       this.description,
       this.add_time,
       this.done_time
     );
-    all_tasks.push(new_task);
-
-    localStorage.setItem(date, JSON.stringify(all_tasks));
+    Update.prototype.update_localstorage(new_task);
   }
 
   get(task) {
@@ -109,4 +120,4 @@ class Task {
   }
 }
 
-// Event listeners
+document.querySelector('.copy_year').textContent = new Date().getFullYear();

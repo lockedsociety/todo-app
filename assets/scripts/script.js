@@ -25,10 +25,10 @@ add_task_btn.addEventListener("click", () => {
 });
 
 history_btn.addEventListener("click", () => {
-  if (history_form.style.display == "flex") {
-    form.style.display = "none";
+  if (history_form.style.display == "block") {
+    history_form.style.display = "none";
   } else {
-    history_form.style.display = "flex";
+    history_form.style.display = "block";
   }
 });
 
@@ -47,7 +47,7 @@ form.addEventListener("submit", (e) => {
   let task = new Task(name, description, add_time, done_time);
   task.save();
 
-  Initialize.prototype.initialize_tasks();
+  Update.prototype.update_tasks(new Date().toLocaleDateString());
 
   namef.value = "";
   descriptionf.value = "";
@@ -58,13 +58,12 @@ history_form.addEventListener("submit", (e) => {
   e.preventDefault();
 
   let date = history_form.children[1].value;
+
   let tasks = JSON.parse(localStorage.getItem(date));
+
   document.querySelector(".tasks").textContent = "";
-  if (tasks)
-    for (let task of tasks) {
-      document.querySelector(".tasks").prepend(Task.prototype.get(task));
-    }
-  else {
-    document.querySelector(".tasks").textContent = "No task available.";
-  }
+
+  Update.prototype.update_datetime(date);
+  Update.prototype.update_tasks(date);
+
 });

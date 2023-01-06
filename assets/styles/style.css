@@ -159,7 +159,7 @@ input, textarea
 
 .history_form
 {
-    
+   display: none; 
 }
 
 .tasks
