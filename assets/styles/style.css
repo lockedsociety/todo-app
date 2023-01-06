@@ -147,7 +147,7 @@ input, textarea
 
 .datetime__date, .datetime__time
 {
-    text-align: center;
+    text-align: left;
 }
 
 .datetime__date

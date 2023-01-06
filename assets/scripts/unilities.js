@@ -12,9 +12,7 @@ class Initialize {
 
   initialize_datetime() {
     let date = new Date();
-    document.querySelector(".datetime__date").textContent = date.toDateString();
-    document.querySelector(".datetime__time").textContent =
-      date.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
+    document.querySelector(".datetime__date").textContent = "Showing tasks of " + date.toDateString();
   }
 
   initialize_tasks() {
@@ -37,11 +35,6 @@ class Update {
   update_datetime() {
     let date = new Date();
     document.querySelector(".datetime__date").textContent = date.toDateString();
-    document.querySelector(".datetime__time").textContent =
-      date.toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
   }
 
   update() {

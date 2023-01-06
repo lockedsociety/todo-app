@@ -2,7 +2,7 @@
 Initialize.prototype.initialize();
 
 // Update
-Update.prototype.update();
+//Update.prototype.update();
 
 // add task
 
