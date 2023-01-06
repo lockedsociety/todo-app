@@ -2,6 +2,7 @@ let add_task_btn = document.querySelector(".options__button--add");
 let download_btn = document.querySelector(".options__button--download");
 let history_btn = document.querySelector(".options__button--history");
 let form = document.querySelector(".form");
+let history_form = document.querySelector(".history_form");
 
 class Initialize {
   initialize_localstorage() {
@@ -116,21 +117,3 @@ class Task {
 }
 
 // Event listeners
-
-download_btn.addEventListener("click", () => {
-  window.print();
-});
-
-add_task_btn.addEventListener("click", () => {
-  if (form.style.display == "flex") {
-    form.style.display = "none";
-    add_task_btn.style.backgroundImage =
-      "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z' fill='rgba(255,255,255,1)'/%3E%3C/svg%3E\")";
-  } else {
-    form.style.display = "flex";
-    document.querySelector(".form__name").focus();
-    add_task_btn.style.backgroundImage =
-      "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z' fill='rgba(255,255,255,1)'/%3E%3C/svg%3E\")";
-    console.log(1);
-  }
-});
