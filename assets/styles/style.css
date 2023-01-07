@@ -70,9 +70,9 @@ input, textarea
 .options
 {
     display: flex;
-    margin-left: 10px;
     width: 50%;
-    justify-content: flex-end;
+    max-width: 200px;
+    justify-content: space-between;
 }
 
 .options__button
@@ -93,21 +93,42 @@ input, textarea
     background-color: #fc5b5b;
 }
 
-.options__button + .options__button
-{
-    margin-left: 24px;
-}
-
 .options__button span
 {
     display: none;
 }
 
 @media screen and (min-width: 768px) {
+
+    .options
+    {
+        max-width: 400px;
+    }
+    .options__button
+    {
+        width: auto;
+        height: 40px;
+        border-radius: 2px;
+        padding: 10px;
+        padding-left: 40px;
+        background-position: 7.5px 7.5px;
+        background-size: 25px 25px;
+        color: var(--main-text-color);
+
+        display: flex;
+    }
+
    .options__button span
    {
     display: block;
    } 
+
+   form, .datetime, .tasks
+   {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+   }
 }
 
 .options__button--add
