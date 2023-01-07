@@ -6,15 +6,22 @@ let history_form = document.querySelector(".history_form");
 
 class Initialize {
   initialize_localstorage() {
-    let date = new Date().toLocaleDateString();
-    if (!localStorage.getItem(date)) localStorage.setItem(date, "[]");
+    let date = new Date();
+    let d = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+    let task_object = {};
+    task_object[d]  = [];
+    if (!localStorage.getItem("tasks"))
+      localStorage.setItem("tasks", JSON.stringify(task_object));
   }
 
   initialize_tasks() {
-    let date = new Date().toLocaleDateString();
-    let tasks = JSON.parse(localStorage.getItem(date));
     document.querySelector(".tasks").textContent = "";
-    for (let task of tasks) {
+    let date = new Date();
+    let d = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`
+
+    let tasks = JSON.parse(localStorage.getItem("tasks"));
+
+    for (let task of tasks[d]) {
       document.querySelector(".tasks").prepend(Task.prototype.get(task));
     }
   }
@@ -22,7 +29,7 @@ class Initialize {
   initialize_datetime() {
     let date = new Date();
     document.querySelector(".datetime__date").textContent =
-      "Showing tasks of " + date.toLocaleDateString();
+      "Showing tasks of " + date.toDateString();
   }
 
   initialize() {
@@ -34,16 +41,23 @@ class Initialize {
 
 class Update {
   update_localstorage(task) {
-    let date = new Date().toLocaleDateString();
-    let all_tasks = JSON.parse(localStorage.getItem(date));
-    all_tasks.push(task);
-    localStorage.setItem(date, JSON.stringify(all_tasks));
+    let date = new Date();
+    let d = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+
+    let all_tasks = JSON.parse(localStorage.getItem("tasks"));
+
+    all_tasks[d].push(task);
+
+    localStorage.setItem("tasks", JSON.stringify(all_tasks));
   }
 
   update_tasks(date) {
-    let tasks = JSON.parse(localStorage.getItem(date));
+    let tasks = JSON.parse(localStorage.getItem("tasks"));
     document.querySelector(".tasks").textContent = "";
-    for (let task of tasks) {
+    if (!tasks[date])
+      document.querySelector(".tasks").textContent = "No tasks.";
+    else
+    for (let task of tasks[date]) {
       document.querySelector(".tasks").prepend(Task.prototype.get(task));
     }
   }

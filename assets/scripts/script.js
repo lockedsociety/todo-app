@@ -47,7 +47,10 @@ form.addEventListener("submit", (e) => {
   let task = new Task(name, description, add_time, done_time);
   task.save();
 
-  Update.prototype.update_tasks(new Date().toLocaleDateString());
+  let date = new Date();
+  let d = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+
+  Update.prototype.update_tasks(d);
 
   namef.value = "";
   descriptionf.value = "";
@@ -66,4 +69,5 @@ history_form.addEventListener("submit", (e) => {
   Update.prototype.update_datetime(date);
   Update.prototype.update_tasks(date);
 
+  history_form.style.display = "none";
 });
