@@ -11,7 +11,7 @@ A scheduler for daily tasks.
 - [x] Timestamp when created.
 - [x] Timestamp when to be done.
 - [x] Save locally.
-- [ ] History.
+- [x] History.
 - [ ] Mark as done.
 - [ ] Warn when not done when time reached.
 - [x] Download task as pdf or others.
