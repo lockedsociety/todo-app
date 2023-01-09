@@ -6,15 +6,15 @@ A scheduler for daily tasks.
 
 - [x] Task with title and description.
 - [x] Add task.
-- [ ] Delete task.
-- [ ] Edit task.
+- [x] Delete task.
+- [x] Edit task.
 - [x] Timestamp when created.
 - [x] Timestamp when to be done.
 - [x] Save locally.
 - [x] History.
+- [x] Download task as pdf or others.
 - [ ] Mark as done.
 - [ ] Warn when not done when time reached.
-- [x] Download task as pdf or others.
 
 ## Languages
 

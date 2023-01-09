@@ -4,6 +4,11 @@ let history_btn = document.querySelector(".options__button--history");
 let form = document.querySelector(".form");
 let history_form = document.querySelector(".history_form");
 
+function get_current_date() {
+  let date = new Date();
+  let d = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+  return d;
+}
 function delete_task(id) {
   let tasks = JSON.parse(localStorage.getItem("tasks"));
 
@@ -16,16 +21,52 @@ function delete_task(id) {
     }
   }
   localStorage.setItem("tasks", JSON.stringify(tasks));
-  let date = new Date();
-  let d = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
-  Update.prototype.update_tasks(d);
+  Update.prototype.update_tasks(get_current_date());
+}
+
+function edit_task(id) {
+
+  let ef = document.querySelector(".editform");
+
+  if (ef.style.display == "flex") ef.style.display = "none";
+  else ef.style.display = "flex";
+  document.querySelector(".editform").addEventListener("submit", (e) => {
+    e.preventDefault();
+    let nt = ef.children[0].value;
+    let nd = ef.children[1].value;
+    let ntim = ef.children[2].value;
+
+    act_edit(nt, nd, ntim, id);
+  });
+}
+
+function act_edit(title, nd, ntim, id) {
+  let tasks = JSON.parse(localStorage.getItem("tasks"));
+  for (let key in tasks) {
+    for (let task of tasks[key]) {
+      if (task.id == id) {
+        let index = tasks[key].indexOf(task);
+        // tasks[key].splice(index, 1);
+        let e_task = new Task(
+          title,
+          nd,
+          new Date().toLocaleTimeString(),
+          ntim,
+          id
+        );
+        tasks[key].splice(index, 1, e_task);
+      }
+    }
+  }
+
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+  Update.prototype.update_tasks(get_current_date());
 }
 
 class Initialize {
   initialize_localstorage() {
     // for taska
-    let date = new Date();
-    let d = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+    let d = get_current_date();
     let task_object = {};
     task_object[d] = [];
     if (!localStorage.getItem("tasks"))
@@ -39,8 +80,7 @@ class Initialize {
 
   initialize_tasks() {
     document.querySelector(".tasks").textContent = "";
-    let date = new Date();
-    let d = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+    let d = get_current_date();
 
     let tasks = JSON.parse(localStorage.getItem("tasks"));
 
@@ -66,8 +106,7 @@ class Initialize {
 
 class Update {
   update_localstorage(task) {
-    let date = new Date();
-    let d = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+    let d = get_current_date();
 
     let all_tasks = JSON.parse(localStorage.getItem("tasks"));
 
@@ -100,15 +139,16 @@ class Update {
 }
 
 class Task {
-  constructor(name, description, add_time, done_time) {
+  constructor(name, description, add_time, done_time, id = undefined) {
     this.name = name;
     this.description = description;
     this.add_time = add_time;
     this.done_time = done_time;
-    let task_id = parseInt(localStorage.getItem("task_id"));
-    this.id = task_id;
-    console.log("task id = ", task_id);
-    localStorage.setItem("task_id", task_id + 1);
+    if (!id) {
+      let task_id = parseInt(localStorage.getItem("task_id"));
+      this.id = task_id;
+      localStorage.setItem("task_id", task_id + 1);
+    } else this.id = id;
   }
 
   save() {
@@ -162,6 +202,9 @@ class Task {
       { class: "tasks__option", "data-id": task.id },
       "Edit"
     );
+    edit_btn.addEventListener("click", (e) => {
+      edit_task(e.target.dataset.id);
+    });
 
     let options = get_element("div", { class: "tasks__options" }, "");
     options.appendChild(dlt_btn);

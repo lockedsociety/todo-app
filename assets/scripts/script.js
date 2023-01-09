@@ -46,8 +46,7 @@ form.addEventListener("submit", (e) => {
   let task = new Task(name, description, add_time, done_time);
   task.save();
 
-  let date = new Date();
-  let d = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+  let d = get_current_date();
 
   Update.prototype.update_tasks(d);
 
