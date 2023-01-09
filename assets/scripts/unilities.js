@@ -30,11 +30,9 @@ class Initialize {
     task_object[d] = [];
     if (!localStorage.getItem("tasks"))
       localStorage.setItem("tasks", JSON.stringify(task_object));
-    else {
-      let all_tasks = JSON.parse(localStorage.getItem("tasks"));
-      if (!d in all_tasks) all_tasks[d] = [];
-      localStorage.setItem("tasks", JSON.stringify(all_tasks));
-    }
+    let all_tasks = JSON.parse(localStorage.getItem("tasks"));
+    if (!(d in all_tasks)) all_tasks[d] = [];
+    localStorage.setItem("tasks", JSON.stringify(all_tasks));
     // for id
     if (!localStorage.getItem("task_id")) localStorage.setItem("task_id", "0");
   }
