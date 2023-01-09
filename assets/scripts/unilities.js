@@ -25,7 +25,6 @@ function delete_task(id) {
 }
 
 function edit_task(id) {
-
   let ef = document.querySelector(".editform");
 
   if (ef.style.display == "flex") ef.style.display = "none";
@@ -192,16 +191,30 @@ class Task {
     let dlt_btn = get_element(
       "button",
       { class: "tasks__option", "data-id": task.id },
+      ""
+    );
+
+    let dlt_txt = get_element(
+      "span",
+      { class: "tasks__option--text"},
       "Delete"
     );
+    dlt_btn.appendChild(dlt_txt);
+
     dlt_btn.addEventListener("click", (e) => {
       delete_task(e.target.dataset.id);
     });
     let edit_btn = get_element(
       "button",
       { class: "tasks__option", "data-id": task.id },
+      ""
+    );
+    let edit_txt = get_element(
+      "span",
+      { class: "tasks__option--text"},
       "Edit"
     );
+    edit_btn.appendChild(edit_txt);
     edit_btn.addEventListener("click", (e) => {
       edit_task(e.target.dataset.id);
     });
