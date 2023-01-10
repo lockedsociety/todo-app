@@ -9,62 +9,52 @@ function get_current_date() {
   let d = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
   return d;
 }
-function delete_task(id) {
-  let tasks = JSON.parse(localStorage.getItem("tasks"));
 
-  for (let key in tasks) {
-    for (let task of tasks[key]) {
-      if (task.id == id) {
-        let index = tasks[key].indexOf(task);
-        tasks[key].splice(index, 1);
-      }
-    }
-  }
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-  Update.prototype.update_tasks(get_current_date());
-}
+function open_edit_form(task, id) {
+  let task_info = task.children[1];
 
-function edit_task(id) {
-  let ef = document.querySelector(".editform");
+  let task_name = document.querySelector(".tasks__name");
+  let task_description = document.querySelector(".tasks__description");
+  let task_add_time = document.querySelector(".tasks__add_time");
+  let task_done_time = document.querySelector(".tasks__done_time");
 
-  if (ef.style.display == "flex") ef.style.display = "none";
-  else ef.style.display = "flex";
-  document.querySelector(".editform").addEventListener("submit", (e) => {
-    e.preventDefault();
-    let nt = ef.children[0].value;
-    let nd = ef.children[1].value;
-    let ntim = ef.children[2].value;
+  let task_name_input = document.createElement("input");
+  task_name_input.type = "text";
+  task_name_input.value = task_name.textContent;
 
-    act_edit(nt, nd, ntim, id);
+  let task_description_input = document.createElement("input");
+  task_description_input.type = "text";
+  task_description_input.value = task_description.textContent;
+
+  let task_done_input = document.createElement("input");
+  task_done_input.type = "text";
+  task_done_input.value = task_done_time.textContent;
+
+  let task_submit = document.createElement("input");
+  task_submit.type = "submit";
+  task_submit.addEventListener("click", () => {
+    Task.prototype.edit(
+      task_name_input.value,
+      task_description_input.value,
+      task_done_input.value,
+      id
+    );
   });
-}
 
-function act_edit(title, nd, ntim, id) {
-  let tasks = JSON.parse(localStorage.getItem("tasks"));
-  for (let key in tasks) {
-    for (let task of tasks[key]) {
-      if (task.id == id) {
-        let index = tasks[key].indexOf(task);
-        // tasks[key].splice(index, 1);
-        let e_task = new Task(
-          title,
-          nd,
-          new Date().toLocaleTimeString(),
-          ntim,
-          id
-        );
-        tasks[key].splice(index, 1, e_task);
-      }
-    }
-  }
+  task_name.replaceWith(task_name_input);
+  task_description.replaceWith(task_description_input);
+  task_done_time.replaceWith(task_done_input);
 
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-  Update.prototype.update_tasks(get_current_date());
+  task_info.appendChild(task_submit);
+
+  // let ef = document.querySelector(".editform");
+  // if (ef.style.display == "flex") ef.style.display = "none";
+  // else ef.style.display = "flex";
+  // ef.children[3].value = id;
 }
 
 class Initialize {
   initialize_localstorage() {
-    // for taska
     let d = get_current_date();
     let task_object = {};
     task_object[d] = [];
@@ -73,18 +63,14 @@ class Initialize {
     let all_tasks = JSON.parse(localStorage.getItem("tasks"));
     if (!(d in all_tasks)) all_tasks[d] = [];
     localStorage.setItem("tasks", JSON.stringify(all_tasks));
-    // for id
+
     if (!localStorage.getItem("task_id")) localStorage.setItem("task_id", "0");
   }
 
   initialize_tasks() {
     document.querySelector(".tasks").textContent = "";
     let d = get_current_date();
-
     let tasks = JSON.parse(localStorage.getItem("tasks"));
-
-    console.log(tasks);
-
     for (let task of tasks[d]) {
       document.querySelector(".tasks").prepend(Task.prototype.get(task));
     }
@@ -106,13 +92,9 @@ class Initialize {
 class Update {
   update_localstorage(task) {
     let d = get_current_date();
-
     let all_tasks = JSON.parse(localStorage.getItem("tasks"));
-
     all_tasks[d].push(task);
-
     console.log(all_tasks);
-
     localStorage.setItem("tasks", JSON.stringify(all_tasks));
   }
 
@@ -154,7 +136,41 @@ class Task {
     Update.prototype.update_localstorage(this);
   }
 
+  edit(title, nd, ntim, id) {
+    console.log("id edit id = ", id);
+    let tasks = JSON.parse(localStorage.getItem("tasks"));
+    for (let key in tasks) {
+      for (let task of tasks[key]) {
+        if (task.id == id) {
+          let index = tasks[key].indexOf(task);
+          // tasks[key].splice(index, 1);
+          let e_task = new Task(
+            title,
+            nd,
+            new Date().toLocaleTimeString(),
+            ntim,
+            id
+          );
+          tasks[key].splice(index, 1, e_task);
+        }
+      }
+    }
+
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    Update.prototype.update_tasks(get_current_date());
+  }
+
   get(task) {
+    console.log(typeof task);
+    let id = task.id;
+    console.log("in get id = ", id);
+    task = new Task(
+      task.name,
+      task.description,
+      task.add_time,
+      task.done_time,
+      task.id
+    );
     function get_element(name, attr, texts) {
       let elm = document.createElement(name);
       for (let i in attr) elm.setAttribute(i, attr[i]);
@@ -196,14 +212,15 @@ class Task {
 
     let dlt_txt = get_element(
       "span",
-      { class: "tasks__option--text"},
+      { class: "tasks__option--text" },
       "Delete"
     );
     dlt_btn.appendChild(dlt_txt);
 
     dlt_btn.addEventListener("click", (e) => {
-      delete_task(e.target.dataset.id);
+      task.delete();
     });
+
     let edit_btn = get_element(
       "button",
       { class: "tasks__option", "data-id": task.id },
@@ -211,12 +228,12 @@ class Task {
     );
     let edit_txt = get_element(
       "span",
-      { class: "tasks__option--text"},
+      { class: "tasks__option--text" },
       "Edit"
     );
     edit_btn.appendChild(edit_txt);
     edit_btn.addEventListener("click", (e) => {
-      edit_task(e.target.dataset.id);
+      open_edit_form(e.target.parentElement.parentElement, task.id);
     });
 
     let options = get_element("div", { class: "tasks__options" }, "");
@@ -228,6 +245,21 @@ class Task {
     t.appendChild(info);
 
     return t;
+  }
+  delete() {
+    let id = this.id;
+    let tasks = JSON.parse(localStorage.getItem("tasks"));
+
+    for (let key in tasks) {
+      for (let task of tasks[key]) {
+        if (task.id == id) {
+          let index = tasks[key].indexOf(task);
+          tasks[key].splice(index, 1);
+        }
+      }
+    }
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    Update.prototype.update_tasks(get_current_date());
   }
 }
 

@@ -1,11 +1,6 @@
 // Initialization
 Initialize.prototype.initialize();
 
-// Update
-//Update.prototype.update();
-
-// add task
-
 download_btn.addEventListener("click", () => {
   window.print();
 });
@@ -68,4 +63,16 @@ history_form.addEventListener("submit", (e) => {
   Update.prototype.update_tasks(date);
 
   history_form.style.display = "none";
+});
+
+document.querySelector(".editform").addEventListener("submit", (e) => {
+  e.preventDefault();
+  let ef = document.querySelector(".editform");
+  let nt = ef.children[0].value;
+  let nd = ef.children[1].value;
+  let ntim = ef.children[2].value;
+  let id = ef.children[3].value;
+
+
+  Task.prototype.edit(nt, nd, ntim, id);
 });
