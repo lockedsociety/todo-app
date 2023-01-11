@@ -63,6 +63,7 @@ history_form.addEventListener("submit", (e) => {
   Update.prototype.update_tasks(date);
 
   history_form.style.display = "none";
+  localStorage.setItem("current_display_date", date);
 });
 
 document.querySelector(".editform").addEventListener("submit", (e) => {
@@ -72,7 +73,6 @@ document.querySelector(".editform").addEventListener("submit", (e) => {
   let nd = ef.children[1].value;
   let ntim = ef.children[2].value;
   let id = ef.children[3].value;
-
 
   Task.prototype.edit(nt, nd, ntim, id);
 });

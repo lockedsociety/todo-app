@@ -4,6 +4,13 @@ let history_btn = document.querySelector(".options__button--history");
 let form = document.querySelector(".form");
 let history_form = document.querySelector(".history_form");
 
+function get_element(name, attr, texts) {
+  let elm = document.createElement(name);
+  for (let i in attr) elm.setAttribute(i, attr[i]);
+  elm.textContent = texts;
+  return elm;
+}
+
 function get_current_date() {
   let date = new Date();
   let d = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
@@ -18,39 +25,88 @@ function open_edit_form(task, id) {
   let task_add_time = document.querySelector(".tasks__add_time");
   let task_done_time = document.querySelector(".tasks__done_time");
 
-  let task_name_input = document.createElement("input");
-  task_name_input.type = "text";
-  task_name_input.value = task_name.textContent;
-
-  let task_description_input = document.createElement("input");
-  task_description_input.type = "text";
-  task_description_input.value = task_description.textContent;
-
-  let task_done_input = document.createElement("input");
-  task_done_input.type = "text";
-  task_done_input.value = task_done_time.textContent;
-
-  let task_submit = document.createElement("input");
-  task_submit.type = "submit";
-  task_submit.addEventListener("click", () => {
-    Task.prototype.edit(
-      task_name_input.value,
-      task_description_input.value,
-      task_done_input.value,
-      id
+  if (task_info.dataset.mode === "normal") {
+    let task_name_input = get_element(
+      "input",
+      { type: "text", value: task_name.textContent, class: "tasks__name" },
+      ""
     );
-  });
+    let task_description_input = get_element(
+      "input",
+      {
+        type: "text",
+        value: task_description.textContent,
+        class: "tasks__description",
+      },
+      ""
+    );
+    let task_done_input = get_element(
+      "input",
+      {
+        type: "time",
+        value: task_done_time.textContent.split(" ")[1],
+        class: "tasks__done_time",
+      },
+      ""
+    );
+    let task_submit = get_element(
+      "input",
+      { type: "submit", value: "Edit", class: "tasks__submit" },
+      ""
+    );
 
-  task_name.replaceWith(task_name_input);
-  task_description.replaceWith(task_description_input);
-  task_done_time.replaceWith(task_done_input);
+    task_submit.addEventListener("click", () => {
+      Task.prototype.edit(
+        task_name_input.value,
+        task_description_input.value,
+        task_done_input.value,
+        id
+      );
+    });
 
-  task_info.appendChild(task_submit);
+    task_name.replaceWith(task_name_input);
+    task_description.replaceWith(task_description_input);
+    task_done_time.replaceWith(task_done_input);
 
-  // let ef = document.querySelector(".editform");
-  // if (ef.style.display == "flex") ef.style.display = "none";
-  // else ef.style.display = "flex";
-  // ef.children[3].value = id;
+    task_info.appendChild(task_submit);
+
+    task_info.dataset.mode = "edit";
+    task_add_time.style.display = "none";
+  } else {
+    let task_name_input = document.querySelector(".tasks__name");
+    let task_description_input = document.querySelector(".tasks__description");
+    let task_done_time_input = document.querySelector(".tasks__done_time");
+    let task_submit = document.querySelector(".tasks__submit");
+
+    let task_name = get_element(
+      "h2",
+      { class: "tasks__name" },
+      task_name_input.value
+    );
+    let task_description = get_element(
+      "p",
+      {
+        class: "tasks__description",
+      },
+      task_description_input.value
+    );
+    let task_done_time = get_element(
+      "p",
+      {
+        class: "tasks__done_time",
+      },
+      task_done_time_input.value
+    );
+
+    task_add_time.style.display = "block";
+
+    task_name_input.replaceWith(task_name);
+    task_description_input.replaceWith(task_description);
+    task_done_time_input.replaceWith(task_done_time);
+    task_submit.remove();
+
+    task_info.dataset.mode = "normal";
+  }
 }
 
 class Initialize {
@@ -65,11 +121,14 @@ class Initialize {
     localStorage.setItem("tasks", JSON.stringify(all_tasks));
 
     if (!localStorage.getItem("task_id")) localStorage.setItem("task_id", "0");
+
+    if (!localStorage.getItem("current_display_date"))
+      localStorage.setItem("current_display_date", get_current_date());
   }
 
   initialize_tasks() {
     document.querySelector(".tasks").textContent = "";
-    let d = get_current_date();
+    let d = localStorage.getItem("current_display_date");
     let tasks = JSON.parse(localStorage.getItem("tasks"));
     for (let task of tasks[d]) {
       document.querySelector(".tasks").prepend(Task.prototype.get(task));
@@ -79,7 +138,7 @@ class Initialize {
   initialize_datetime() {
     let date = new Date();
     document.querySelector(".datetime__date").textContent =
-      "Showing tasks of " + date.toDateString();
+      "Showing tasks of " + localStorage.getItem("current_display_date");
   }
 
   initialize() {
@@ -120,12 +179,13 @@ class Update {
 }
 
 class Task {
-  constructor(name, description, add_time, done_time, id = undefined) {
+  constructor(name, description, add_time, done_time, is_done = false, id = undefined) {
     this.name = name;
     this.description = description;
     this.add_time = add_time;
     this.done_time = done_time;
-    if (!id) {
+    this.is_done = is_done;
+    if (id == undefined) {
       let task_id = parseInt(localStorage.getItem("task_id"));
       this.id = task_id;
       localStorage.setItem("task_id", task_id + 1);
@@ -134,6 +194,37 @@ class Task {
 
   save() {
     Update.prototype.update_localstorage(this);
+  }
+
+  done(id) {
+    let tasks = JSON.parse(localStorage.getItem("tasks"));
+    for (let key in tasks) {
+      for (let task of tasks[key]) {
+        if (task.id == id) {
+          if (task.is_done) task.is_done = false;
+          else task.is_done = true;
+
+          console.log(task)
+        }
+      }
+    }
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    Update.prototype.update_tasks(get_current_date());
+  }
+  delete() {
+    let id = this.id;
+    let tasks = JSON.parse(localStorage.getItem("tasks"));
+
+    for (let key in tasks) {
+      for (let task of tasks[key]) {
+        if (task.id == id) {
+          let index = tasks[key].indexOf(task);
+          tasks[key].splice(index, 1);
+        }
+      }
+    }
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    Update.prototype.update_tasks(get_current_date());
   }
 
   edit(title, nd, ntim, id) {
@@ -161,22 +252,15 @@ class Task {
   }
 
   get(task) {
-    console.log(typeof task);
-    let id = task.id;
-    console.log("in get id = ", id);
+    console.log("in get",task.id)
     task = new Task(
       task.name,
       task.description,
       task.add_time,
       task.done_time,
+      task.is_done,
       task.id
     );
-    function get_element(name, attr, texts) {
-      let elm = document.createElement(name);
-      for (let i in attr) elm.setAttribute(i, attr[i]);
-      elm.textContent = texts;
-      return elm;
-    }
 
     let task_name = get_element("h2", { class: "tasks__name" }, task.name);
     let task_ctime = get_element(
@@ -203,6 +287,7 @@ class Task {
     info.appendChild(task_description);
     info.appendChild(task_ctime);
     info.appendChild(task_dtime);
+    info.dataset.mode = "normal";
 
     let dlt_btn = get_element(
       "button",
@@ -236,30 +321,35 @@ class Task {
       open_edit_form(e.target.parentElement.parentElement, task.id);
     });
 
-    let options = get_element("div", { class: "tasks__options" }, "");
-    options.appendChild(dlt_btn);
+    // mask as done button
+
+    let mad_btn = get_element(
+      "button",
+      { class: "tasks__option", "data-id": task.id },
+      ""
+    );
+    let mad_txt = get_element(
+      "span",
+      { class: "tasks__option--text" },
+      "Mad"
+    );
+    mad_btn.appendChild(mad_txt);
+    mad_btn.addEventListener("click", (e) => {
+      Task.prototype.done(task.id);
+    });
+
+    console.log(task.is_done)
+
+    let options = get_element("div", { class: `tasks__options task-done-${task.is_done}` }, "");
+    options.appendChild(mad_btn);
     options.appendChild(edit_btn);
+    options.appendChild(dlt_btn);
 
     let t = get_element("div", { class: "tasks__task" }, "");
     t.appendChild(options);
     t.appendChild(info);
 
     return t;
-  }
-  delete() {
-    let id = this.id;
-    let tasks = JSON.parse(localStorage.getItem("tasks"));
-
-    for (let key in tasks) {
-      for (let task of tasks[key]) {
-        if (task.id == id) {
-          let index = tasks[key].indexOf(task);
-          tasks[key].splice(index, 1);
-        }
-      }
-    }
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-    Update.prototype.update_tasks(get_current_date());
   }
 }
 
