@@ -13,8 +13,10 @@
     --main-accent-color: #FF3939;
     --main-text-color: #eeeeee;
     --main-task-color: #17232e;;
+    --main-task-header-bg: #293e52;;
+    --main-task-done-bg: #5c7c4a;;
 
-    --secondary-bg-color: #333338;
+    --secondary-bg-color: #6ba85c;
 }
 
 body
@@ -202,12 +204,12 @@ input, textarea
 {
     display: flex;
     justify-content: flex-end;
-    background-color: #2d465c;
+    background-color: var(--main-task-header-bg);
     padding: 5px;
 }
 .tasks__options.task-done-true
 {
-    background-color: rgb(32, 73, 32);
+    background-color: var(--main-task-done-bg)
 }
 
 .tasks__option--text

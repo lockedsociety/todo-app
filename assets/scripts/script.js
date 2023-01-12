@@ -49,7 +49,7 @@ add_task_form.addEventListener("submit", (e) => {
 
   let d = get_current_date();
 
-  Update.prototype.update_tasks(d);
+  Initialize.prototype.initialize_tasks(d);
 
   namef.value = "";
   descriptionf.value = "";
@@ -62,3 +62,5 @@ history_form.addEventListener("submit", (e) => {
   Initialize.prototype.initialize_tasks(date);
   history_form.style.display = "none";
 });
+
+document.querySelector(".copy_year").textContent = new Date().getFullYear();
