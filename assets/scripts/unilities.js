@@ -18,17 +18,23 @@ function get_current_date() {
   return d;
 }
 
+function get_current_time() {
+  let date = new Date();
+  let time = `${date.getHours()}:${date.getMinutes()}`;
+  return time;
+}
+
 function display_edit_form(obj, task) {
   let task_info = task.children[1];
 
-  let task_name = document.querySelector(".tasks__name");
-  let task_description = document.querySelector(".tasks__description");
-  let task_done_time = document.querySelector(".tasks__done_time--content");
+  let task_name = task_info.children[0];
+  let task_description = task_info.children[1];
+  let task_done_time = task_info.children[3].children[0];
 
   if (task_info.dataset.mode === "normal") {
     let task_name_input = get_element(
       "input",
-      { type: "text", value: task_name.textContent, class: "tasks__name" },
+      { type: "text", value: task_name.textContent, class: "tasks__name tasks__name--input" },
       ""
     );
     let task_description_input = get_element(
@@ -36,7 +42,7 @@ function display_edit_form(obj, task) {
       {
         type: "text",
         value: task_description.textContent,
-        class: "tasks__description",
+        class: "tasks__description tasks__description--input",
       },
       ""
     );
@@ -45,7 +51,7 @@ function display_edit_form(obj, task) {
       {
         type: "time",
         value: task_done_time.textContent.split(" ")[1],
-        class: "tasks__done_time--content",
+        class: "tasks__done_time--content tasks__done_time--content--input",
       },
       ""
     );
@@ -68,15 +74,14 @@ function display_edit_form(obj, task) {
     task_done_time.replaceWith(task_done_input);
 
     task_info.appendChild(task_submit);
+    task_name_input.focus();
 
     task_info.dataset.mode = "edit";
   } else {
-    let task_name_input = document.querySelector(".tasks__name");
-    let task_description_input = document.querySelector(".tasks__description");
-    let task_done_time_input = document.querySelector(
-      ".tasks__done_time--content"
-    );
-    let task_submit = document.querySelector(".tasks__submit");
+    let task_name_input = task_info.children[0];
+    let task_description_input = task_info.children[1];
+    let task_done_time_input = task_info.children[3].children[0];
+    let task_submit = task_info.children[4];
 
     let task_name = get_element(
       "h2",

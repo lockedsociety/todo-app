@@ -41,7 +41,7 @@ add_task_form.addEventListener("submit", (e) => {
 
   let name = namef.value;
   let description = descriptionf.value;
-  let add_time = new Date().toLocaleTimeString();
+  let add_time = get_current_time();
   let done_time = timef.value;
 
   let task = new Task(name, description, add_time, done_time);

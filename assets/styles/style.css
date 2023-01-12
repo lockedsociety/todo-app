@@ -16,7 +16,7 @@
     --main-task-header-bg: #293e52;;
     --main-task-done-bg: #5c7c4a;;
 
-    --secondary-bg-color: #6ba85c;
+    --secondary-bg-color: #222226;
 }
 
 body
@@ -157,8 +157,7 @@ input, textarea
     flex-flow: column wrap;
 }
 
-.form__name, .form__time, .form__description
-,input[type="submit"]
+textarea,input
 {
     margin-bottom: 5px;
     border: 0;
@@ -260,17 +259,47 @@ input, textarea
 
 .tasks__info
 {
+    display: flex;;
+    flex-flow: column;
+
     padding: 5px 10px;
 }
+
+.tasks__name--input, .tasks__description--input, .tasks__done_time--content--input
+{
+    background-color: var(--main-task-header-bg);
+    color: white;
+
+    border: 0;
+
+    padding: 8px;
+}
+
+.tasks__done_time--content--input
+{
+    padding: 5px;
+}
+
 
 .tasks__description
 {
     margin-top: 5px;
 }
 
+.tasks__description--input
+{
+    margin-top: 10px;
+}
+
 .tasks__add_time
 {
     margin-top: 20px;
+}
+
+.tasks__submit
+{
+    margin-top: 10px;
+    background-color: var(--main-task-header-bg);
 }
 
 .footer
