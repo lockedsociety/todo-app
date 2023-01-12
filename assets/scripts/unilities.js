@@ -118,6 +118,7 @@ class Initialize {
       localStorage.setItem("tasks", JSON.stringify(task_object));
     let all_tasks = JSON.parse(localStorage.getItem("tasks"));
     if (!(d in all_tasks)) all_tasks[d] = [];
+    if (!(localStorage.getItem("current_display_date") in all_tasks)) all_tasks[localStorage.getItem("current_display_date")] = [];
     localStorage.setItem("tasks", JSON.stringify(all_tasks));
 
     if (!localStorage.getItem("task_id")) localStorage.setItem("task_id", "0");
@@ -130,6 +131,7 @@ class Initialize {
     document.querySelector(".tasks").textContent = "";
     let d = localStorage.getItem("current_display_date");
     let tasks = JSON.parse(localStorage.getItem("tasks"));
+
     for (let task of tasks[d]) {
       document.querySelector(".tasks").prepend(Task.prototype.get(task));
     }
