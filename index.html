@@ -37,7 +37,7 @@
       <input type="submit" value="Show" />
     </form>
 
-    <form class="form">
+    <form class="add_task_form">
       <input
         type="text"
         class="form__name"
@@ -50,22 +50,9 @@
       <input type="submit" value="Add" />
     </form>
 
-    <form class="editform">
-      <input
-        type="text"
-        class="form__name"
-        placeholder="Title"
-        required
-        autofocus
-      />
-      <textarea class="form__description" placeholder="Description"></textarea>
-      <input type="time" class="form__time" />
-      <input type="hidden" value="" class="form__time" />
-      <input type="submit" value="Add" />
-    </form>
 
     <div class="datetime">
-      <p class="datetime__date"></p>
+      <p class="datetime__date">Tasks of <span class="dateinfo__date"></span></p>
     </div>
 
     <div class="tasks"></div>

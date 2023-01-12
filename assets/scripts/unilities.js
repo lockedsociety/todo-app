@@ -1,7 +1,8 @@
 let add_task_btn = document.querySelector(".options__button--add");
 let download_btn = document.querySelector(".options__button--download");
 let history_btn = document.querySelector(".options__button--history");
-let form = document.querySelector(".form");
+
+let add_task_form = document.querySelector(".add_task_form");
 let history_form = document.querySelector(".history_form");
 
 function get_element(name, attr, texts) {
@@ -111,15 +112,17 @@ function open_edit_form(task, id) {
 
 class Initialize {
   initialize_localstorage() {
-    let d = get_current_date();
-    let task_object = {};
-    task_object[d] = [];
-    if (!localStorage.getItem("tasks"))
-      localStorage.setItem("tasks", JSON.stringify(task_object));
-    let all_tasks = JSON.parse(localStorage.getItem("tasks"));
-    if (!(d in all_tasks)) all_tasks[d] = [];
-    if (!(localStorage.getItem("current_display_date") in all_tasks)) all_tasks[localStorage.getItem("current_display_date")] = [];
-    localStorage.setItem("tasks", JSON.stringify(all_tasks));
+    let date = get_current_date();
+
+    if (!localStorage.getItem("tasks")) {
+      let tasks = {};
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+    let tasks = JSON.parse(localStorage.getItem("tasks"));
+    if (!(date in tasks)) {
+      tasks[date] = [];
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
 
     if (!localStorage.getItem("task_id")) localStorage.setItem("task_id", "0");
 
@@ -127,61 +130,41 @@ class Initialize {
       localStorage.setItem("current_display_date", get_current_date());
   }
 
-  initialize_tasks() {
+  initialize_tasks(date = undefined) {
+    this.initialize_date(date);
     document.querySelector(".tasks").textContent = "";
-    let d = localStorage.getItem("current_display_date");
+    // let d = localStorage.getItem("current_display_date");
+    if (!date) date = get_current_date();
     let tasks = JSON.parse(localStorage.getItem("tasks"));
-
-    for (let task of tasks[d]) {
-      document.querySelector(".tasks").prepend(Task.prototype.get(task));
-    }
+    if (!(date in tasks) || !tasks[date].length)
+      document.querySelector(".tasks").textContent = "No tasks available.";
+    else
+      for (let task of tasks[date])
+        document.querySelector(".tasks").prepend(Task.prototype.get(task));
   }
 
-  initialize_datetime() {
-    let date = new Date();
-    document.querySelector(".datetime__date").textContent =
-      "Showing tasks of " + localStorage.getItem("current_display_date");
+  initialize_date(date = undefined) {
+    if (!date)
+      document.querySelector(".dateinfo__date").textContent =
+        get_current_date();
+    else document.querySelector(".dateinfo__date").textContent = date;
   }
 
   initialize() {
     this.initialize_localstorage();
-    this.initialize_datetime();
     this.initialize_tasks();
   }
 }
 
-class Update {
-  update_localstorage(task) {
-    let d = get_current_date();
-    let all_tasks = JSON.parse(localStorage.getItem("tasks"));
-    all_tasks[d].push(task);
-    console.log(all_tasks);
-    localStorage.setItem("tasks", JSON.stringify(all_tasks));
-  }
-
-  update_tasks(date) {
-    let tasks = JSON.parse(localStorage.getItem("tasks"));
-    document.querySelector(".tasks").textContent = "";
-    if (!tasks[date])
-      document.querySelector(".tasks").textContent = "No tasks.";
-    else
-      for (let task of tasks[date]) {
-        document.querySelector(".tasks").prepend(Task.prototype.get(task));
-      }
-  }
-
-  update_datetime(date) {
-    document.querySelector(".datetime__date").textContent =
-      "Showing tasks of " + date;
-  }
-
-  update() {
-    setInterval(this.update_datetime, 1000);
-  }
-}
-
 class Task {
-  constructor(name, description, add_time, done_time, is_done = false, id = undefined) {
+  constructor(
+    name,
+    description,
+    add_time,
+    done_time,
+    is_done = false,
+    id = undefined
+  ) {
     this.name = name;
     this.description = description;
     this.add_time = add_time;
@@ -195,7 +178,10 @@ class Task {
   }
 
   save() {
-    Update.prototype.update_localstorage(this);
+    let date = get_current_date();
+    let tasks = JSON.parse(localStorage.getItem("tasks"));
+    tasks[date].push(this);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
   }
 
   done(id) {
@@ -206,7 +192,7 @@ class Task {
           if (task.is_done) task.is_done = false;
           else task.is_done = true;
 
-          console.log(task)
+          console.log(task);
         }
       }
     }
@@ -254,7 +240,7 @@ class Task {
   }
 
   get(task) {
-    console.log("in get",task.id)
+    console.log("in get", task.id);
     task = new Task(
       task.name,
       task.description,
@@ -330,19 +316,19 @@ class Task {
       { class: "tasks__option", "data-id": task.id },
       ""
     );
-    let mad_txt = get_element(
-      "span",
-      { class: "tasks__option--text" },
-      "Mad"
-    );
+    let mad_txt = get_element("span", { class: "tasks__option--text" }, "Mad");
     mad_btn.appendChild(mad_txt);
     mad_btn.addEventListener("click", (e) => {
       Task.prototype.done(task.id);
     });
 
-    console.log(task.is_done)
+    console.log(task.is_done);
 
-    let options = get_element("div", { class: `tasks__options task-done-${task.is_done}` }, "");
+    let options = get_element(
+      "div",
+      { class: `tasks__options task-done-${task.is_done}` },
+      ""
+    );
     options.appendChild(mad_btn);
     options.appendChild(edit_btn);
     options.appendChild(dlt_btn);
