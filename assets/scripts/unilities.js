@@ -15,12 +15,20 @@ function get_element(name, attr, texts) {
 
 function check_time_over() {
   let time = get_current_time();
+  time = time.split(":");
+  time = +time[0] * 60 + +time[1];
   let rendered_tasks = document.querySelectorAll(".tasks__task");
   rendered_tasks.forEach((e) => {
     let elm = e.children[1].children[3].children[0];
+    let elm_time;
+    if (elm.textContent !== "unspecified time") {
+      elm_time = elm.textContent.split(":");
+      elm_time = +elm_time[0] * 60 + +elm_time[1];
+    }
     if (
       elm.textContent !== "unspecified time" &&
-      elm.textContent != time &&
+      elm.textContent !== "" &&
+      elm_time < time &&
       e.children[0].classList.contains("task-done-false")
     ) {
       e.children[0].style.backgroundColor = "var(--main-task-time-over-bg)";
@@ -83,7 +91,7 @@ function display_edit_form(obj, task) {
       "input",
       {
         type: "time",
-        value: task_done_time.textContent.split(" ")[1],
+        value: task_done_time.textContent,
         class: "tasks__done_time--content tasks__done_time--content--input",
       },
       ""
