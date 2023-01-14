@@ -59,8 +59,14 @@ add_task_form.addEventListener("submit", (e) => {
 history_form.addEventListener("submit", (e) => {
   e.preventDefault();
   let date = history_form.children[1].value;
-  Initialize.prototype.initialize_tasks(date);
+  localStorage.setItem("current_display_date", date);
+  Initialize.prototype.initialize_tasks();
   history_form.style.display = "none";
+});
+
+today_btn.addEventListener("click", () => {
+  localStorage.setItem("current_display_date", get_current_date());  
+  Initialize.prototype.initialize_tasks();
 });
 
 document.querySelector(".copy_year").textContent = new Date().getFullYear();

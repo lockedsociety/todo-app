@@ -12,9 +12,9 @@
     --main-header-color: #08080D;
     --main-accent-color: #FF3939;
     --main-text-color: #eeeeee;
-    --main-task-color: #17232e;;
-    --main-task-header-bg: #293e52;;
-    --main-task-done-bg: #5c7c4a;;
+    --main-task-color: #252525;
+    --main-task-header-bg: #ffffff15;
+    --main-task-done-bg: #558860aa;
 
     --secondary-bg-color: #222226;
 }
@@ -150,7 +150,7 @@ input, textarea
 {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0H24V24H0z'/%3E%3Cpath d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12h2c0 4.418 3.582 8 8 8s8-3.582 8-8-3.582-8-8-8C9.536 4 7.332 5.114 5.865 6.865L8 9H2V3l2.447 2.446C6.28 3.336 8.984 2 12 2zm1 5v4.585l3.243 3.243-1.415 1.415L11 12.413V7h2z' fill='rgba(255,255,255,1)'/%3E%3C/svg%3E");
 }
-.add_task_form, .editform
+.add_task_form
 {
     padding: 10px;
     display: none;
@@ -161,9 +161,13 @@ textarea,input
 {
     margin-bottom: 5px;
     border: 0;
-    padding: 5px;
+    padding: 8px;
     background-color: var(--secondary-bg-color);
     color: var(--main-text-color);
+}
+input:focus, textarea:focus
+{
+    outline: 1px solid var(--main-accent-color);
 }
 
 .form__description
@@ -187,11 +191,20 @@ textarea,input
     margin-bottom: 5px;
 }
 
+.date__history
+{
+    display: none;
+}
 /* history form */
 
 .history_form
 {
    display: none; 
+   padding: 10px;
+}
+.history__text
+{
+    margin-bottom: 10px;
 }
 
 .tasks
@@ -255,6 +268,7 @@ textarea,input
 
     margin-bottom: 20px;
     padding: 0;
+    border-radius: 2px;
 }
 
 .tasks__info
@@ -273,6 +287,11 @@ textarea,input
     border: 0;
 
     padding: 8px;
+}
+
+.tasks__add_time, .tasks__done_time
+{
+    font-size: 0.7rem;
 }
 
 .tasks__done_time--content--input
