@@ -13,6 +13,22 @@ function get_element(name, attr, texts) {
   return elm;
 }
 
+function check_time_over() {
+  let time = get_current_time();
+  let rendered_tasks = document.querySelectorAll(".tasks__task");
+  rendered_tasks.forEach((e) => {
+    let elm = e.children[1].children[3].children[0];
+    if (
+      elm.textContent !== "unspecified time" &&
+      elm.textContent != time &&
+      e.children[0].classList.contains("task-done-false")
+    ) {
+      e.children[0].style.backgroundColor = "var(--main-task-time-over-bg)";
+    }
+  });
+}
+setInterval(check_time_over, 1000);
+
 function toggle_today() {
   let current_date = get_current_date();
   let display_date = localStorage.getItem("current_display_date");
@@ -150,6 +166,7 @@ class Initialize {
   }
 
   initialize_tasks(date = undefined) {
+    this.initialize_localstorage();
     document.querySelector(".tasks").textContent = "";
     // let d = localStorage.getItem("current_display_date");
     if (!date) date = get_current_display_date();

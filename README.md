@@ -13,8 +13,8 @@ A scheduler for daily tasks.
 - [x] Save locally.
 - [x] History.
 - [x] Download task as pdf or others.
-- [ ] Mark as done.
-- [ ] Warn when not done when time reached.
+- [x] Mark as done.
+- [x] Warn when not done when time reached.
 
 ## Languages
 
